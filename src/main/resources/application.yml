@@ -1,0 +1,31 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: iam-service
+
+info:
+  app:
+    description: "Identity and Access Management Service (OAuth2/JWT)"
+
+  main:
+    banner-mode: "console"
+    allow-bean-definition-overriding: true
+
+iam:
+  jwt-secret: ${JWT_SECRET:M2I3YzA5OGU1YmFhN2U3Zjk0ZWY0ZGIyYmU5ZDBjZjkxZWRhYmFmNjA4MGY1ZDIzM2M4ZGM0ZTI5N2I0YmU3YQ==}
+  client-id: ${IAM_CLIENT_ID:service-integration-provider}
+  client-secret: ${IAM_CLIENT_SECRET:7e5a8f42-c1b3-4d9a-8e2f-1a5c6b7d8e9f}
+
+logging:
+  level:
+    org.springframework.security: DEBUG
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: ["health", "info"]
+  health:
+    show-details: never
