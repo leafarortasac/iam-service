@@ -18,7 +18,6 @@ public class JwtService {
     private static final long EXPIRATION_TIME = 3600000;
 
     public String generateToken(String clientId) {
-        // No JJWT 0.12+, usamos SecretKey
         SecretKey key = Keys.hmacShaKeyFor(secretKey.getBytes(StandardCharsets.UTF_8));
 
         return Jwts.builder()

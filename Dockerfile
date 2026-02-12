@@ -2,28 +2,32 @@
 FROM maven:3.9.6-eclipse-temurin-21-alpine AS build
 WORKDIR /app
 
-# Copia o POM e baixa as dependências (Cache layer)
-COPY pom.xml .
+# 1. Build da biblioteca de contratos (Shared Contracts)
+# Ajustamos o caminho de acordo com a estrutura da sua pasta raiz
+COPY shared-contracts /app/shared-contracts
+WORKDIR /app/shared-contracts
+RUN mvn clean install -DskipTests
+
+# 2. Build do IAM Service
+WORKDIR /app/iam-service
+COPY iam-service/pom.xml .
 RUN mvn dependency:go-offline
 
-# Copia o código fonte e gera o JAR
-COPY src ./src
+COPY iam-service/src ./src
 RUN mvn clean package -DskipTests
 
 # Estágio de Execução (Runtime)
 FROM eclipse-temurin:21-jre-alpine
 WORKDIR /app
 
-# Ajuste no COPY: Usamos um curinga mais específico ou o nome final do JAR
-# para evitar copiar múltiplos arquivos se houver mais de um .jar no target
-COPY --from=build /app/target/*.jar app.jar
+# Copia o JAR gerado no estágio de build
+COPY --from=build /app/iam-service/target/*.jar app.jar
 
-# Configuração de fuso horário (Ótimo para logs precisos no Brasil)
+# Configuração de fuso horário para Manaus
 RUN apk add --no-cache tzdata
 ENV TZ=America/Manaus
 
-# Porta que você definiu para o IAM no docker-compose
 EXPOSE 8080
 
-# Adicionei o parâmetro de memória para evitar que o Java consuma todo o container (Boas práticas)
+# Parâmetros de memória e timezone para o Java 21
 ENTRYPOINT ["java", "-Xmx512m", "-Duser.timezone=America/Manaus", "-jar", "app.jar"]

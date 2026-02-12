@@ -4,14 +4,20 @@ server:
 spring:
   application:
     name: iam-service
+  main:
+    banner-mode: "console"
+    allow-bean-definition-overriding: true
+  jackson:
+    default-property-inclusion: non_null
 
 info:
   app:
     description: "Identity and Access Management Service (OAuth2/JWT)"
 
-  main:
-    banner-mode: "console"
-    allow-bean-definition-overriding: true
+  data:
+    mongodb:
+      uri: ${SPRING_DATA_MONGODB_URI:mongodb://mongo-iam:27017/iam_db}
+      auto-index-creation: true
 
 iam:
   jwt-secret: ${JWT_SECRET:M2I3YzA5OGU1YmFhN2U3Zjk0ZWY0ZGIyYmU5ZDBjZjkxZWRhYmFmNjA4MGY1ZDIzM2M4ZGM0ZTI5N2I0YmU3YQ==}
