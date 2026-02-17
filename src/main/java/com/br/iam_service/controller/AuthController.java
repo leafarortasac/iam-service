@@ -23,7 +23,6 @@ public class AuthController implements AutenticacaoApi {
     private String expectedClientSecret;
 
 
-
     @Override
     public ResponseEntity<AuthResponseRepresentation> obterToken(
             final ObterTokenRequestRepresentation representation) {
