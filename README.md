@@ -63,12 +63,13 @@ O cliente utiliza este token no cabeçalho Authorization para consumir APIs prot
 
 Bash
 # Exemplo de autenticação de usuário
-  curl -X POST http://localhost:8080/v1/usuario/login \
-  -H "Content-Type: application/json" \
-  -d '{
-  "email": "rafael.castromelo@gmail.com",
-  "senha": "sua_senha_aqui"
-  }'
+    curl -X POST http://localhost:8080/v1/usuario/login \
+    -H "Content-Type: application/json" \
+    -d '{
+    "email": "rafael.castromelo@gmail.com",
+    "senha": "sua_senha_aqui"
+    }'
+
 
 📦 Como Instalar e Rodar
 
