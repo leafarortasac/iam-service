@@ -3,6 +3,7 @@ IAM Service (Identity & Access Management) 🔐
 O IAM Service é o núcleo de segurança da arquitetura de microsserviços. Ele atua como um provedor de identidade (Identity Provider), sendo responsável por autenticar usuários e serviços integradores, emitindo tokens JWT (JSON Web Tokens) que garantem a integridade e a autoria das operações em todo o ecossistema.
 
 🚀 Responsabilidades Principais
+
 Gestão de Identidade: Registro e gerenciamento de usuários com persistência em banco de dados.
 
 Autenticação M2M (Machine-to-Machine): Validação de credenciais de serviços integradores via Client ID e Client Secret.
@@ -12,6 +13,7 @@ Emissão de JWT: Geração de tokens assinados com chave secreta para tráfego s
 Segurança Centralizada: Definição de regras de acesso e expiração de sessões para qualquer serviço consumidor.
 
 🛠️ Tecnologias e Ferramentas
+
 Java 21 & Spring Boot 3
 
 Spring Security: Framework base para a camada de proteção.
@@ -37,6 +39,7 @@ Usuários: Nome, e-mail, senha (criptografada) e permissões.
 Configurações de Acesso: Regras específicas por tipo de perfil.
 
 🔐 Configurações de Integração
+
 O IAM utiliza o conceito de Client Credentials para fluxos entre serviços e User Credentials para fluxos de usuários (Mobile/Web).
 
 Credenciais de Integração (Ambiente de Teste)
@@ -60,12 +63,13 @@ O cliente utiliza este token no cabeçalho Authorization para consumir APIs prot
 
 Bash
 # Exemplo de autenticação de usuário
-curl -X POST http://localhost:8080/v1/usuario/login \
--H "Content-Type: application/json" \
--d '{
-"email": "rafael.castromelo@gmail.com",
-"senha": "sua_senha_aqui"
-}'
+  curl -X POST http://localhost:8080/v1/usuario/login \
+  -H "Content-Type: application/json" \
+  -d '{
+  "email": "rafael.castromelo@gmail.com",
+  "senha": "sua_senha_aqui"
+  }'
+
 📦 Como Instalar e Rodar
 
 Certifique-se de que o MongoDB está rodando (via Docker ou local).
